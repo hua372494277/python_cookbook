@@ -56,4 +56,29 @@ Popen的函数声明如下:
     communicate() returns a tuple (stdoutdata, stderrdata).     
     Note that if you want to send data to the process’s stdin, you need to create the Popen object with stdin=PIPE. Similarly, to get anything other than None in the result tuple, you need to give stdout=PIPE and/or stderr=PIPE too.      
 * universal_newlines=True是为了转换line endings
-When stdout or stderr are pipes and universal_newlines is True then all line endings will be converted to '\n' as described for the universal newlines 'U' mode argument to open().
+When stdout or stderr are pipes and universal_newlines is True then all line endings will be converted to '\n' as described for the universal newlines 'U' mode argument to open().    
+
+## sys.executable
+	可以获得python解释器的路径    
+
+## with如何工作
+python对with的处理很聪明，基本思想是with所求值的对象必须有一个__enter__()方法，一个__exit__()方法。紧跟with后面的语句被求值后，返回对象的__enter__()方法被调用，这个方法的返回值将被赋值给as后面的变量。当with后面的代码块全部被执行完之后，将调用前面返回对象的__exit()__方法。     
+	class Sample:    
+	    def __enter__(self):    
+	        print "In __enter__()"  	
+	        return "Foo"	
+
+	    def __exit__(self, type, value, trace):		
+	        print "In __exit__()"		
+
+
+	def get_sample():		
+	    return Sample()		
+
+
+	with get_sample() as sample:		
+	    print "sample:", sample 		
+输出：		
+In __enter__()
+sample: Foo
+In __exit__()
