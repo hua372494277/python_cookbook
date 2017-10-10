@@ -66,8 +66,8 @@ python对with的处理很聪明，基本思想是with所求值的对象必须有
 
     class Sample:    
     
-        def \_\_enter\_\_(self):    
-            print "In \_\_enter\_\_()"      
+        def __enter__(self):    
+            print "In __enter__()"      
             return "Foo"    
 
         def __exit__(self, type, value, trace):        
