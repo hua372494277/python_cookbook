@@ -62,8 +62,10 @@ When stdout or stderr are pipes and universal_newlines is True then all line end
     可以获得python解释器的路径    
 
 ## with如何工作
-python对with的处理很聪明，基本思想是with所求值的对象必须有一个__enter__()方法，一个__exit__()方法。紧跟with后面的语句被求值后，返回对象的__enter__()方法被调用，这个方法的返回值将被赋值给as后面的变量。当with后面的代码块全部被执行完之后，将调用前面返回对象的__exit()__方法。     
+python对with的处理很聪明，基本思想是with所求值的对象必须有一个__enter__()方法，一个__exit__()方法。紧跟with后面的语句被求值后，返回对象的__enter__()方法被调用，这个方法的返回值将被赋值给as后面的变量。当with后面的代码块全部被执行完之后，将调用前面返回对象的__exit()__方法。 
+
     class Sample:    
+    
         def \_\_enter\_\_(self):    
             print "In \_\_enter\_\_()"      
             return "Foo"    
