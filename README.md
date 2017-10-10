@@ -44,3 +44,16 @@ a is b 这个表达式等价于下面的表达式 if id(a) == id(b)
 
 * 库lib：是参考其他编程语言的说法，就是指python中的完成一定功能的代码集合，供用户使用的代码组合。在python中是包和模块的形式。
 
+## subprocess    
+Popen的函数声明如下:    
+	subprocess.Popen(args, bufsize=0, executable=None, stdin=None, stdout=None, stderr=None, preexec_fn=None, close_fds=False, shell=False, cwd=None, env=None, universal_newlines=False, startupinfo=None, creationflags=0)    
+如果想和process交互，那么需要：     
+* 为了向process输入数据，需要将stdin=PIPE.
+* 为了得到process的输出和error信息，需要将stdout和stderr都设置成PIP.
+和proccess的交互方式是通过：      
+ Popen.communicate(input=None)    
+    Interact with process: Send data to stdin. Read data from stdout and stderr, until end-of-file is reached. Wait for process to terminate. The optional input argument should be a string to be sent to the child process, or None, if no data should be sent to the child.     
+    communicate() returns a tuple (stdoutdata, stderrdata).     
+    Note that if you want to send data to the process’s stdin, you need to create the Popen object with stdin=PIPE. Similarly, to get anything other than None in the result tuple, you need to give stdout=PIPE and/or stderr=PIPE too.      
+* universal_newlines=True是为了转换line endings
+When stdout or stderr are pipes and universal_newlines is True then all line endings will be converted to '\n' as described for the universal newlines 'U' mode argument to open().
