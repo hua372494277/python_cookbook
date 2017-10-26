@@ -62,8 +62,10 @@ When stdout or stderr are pipes and universal_newlines is True then all line end
     可以获得python解释器的路径    
 
 ## with如何工作
-python对with的处理很聪明，基本思想是with所求值的对象必须有一个__enter__()方法，一个__exit__()方法。紧跟with后面的语句被求值后，返回对象的__enter__()方法被调用，这个方法的返回值将被赋值给as后面的变量。当with后面的代码块全部被执行完之后，将调用前面返回对象的__exit()__方法。     
+python对with的处理很聪明，基本思想是with所求值的对象必须有一个__enter__()方法，一个__exit__()方法。紧跟with后面的语句被求值后，返回对象的__enter__()方法被调用，这个方法的返回值将被赋值给as后面的变量。当with后面的代码块全部被执行完之后，将调用前面返回对象的__exit()__方法。 
+
     class Sample:    
+    
         def __enter__(self):    
             print "In __enter__()"      
             return "Foo"    
@@ -71,17 +73,35 @@ python对with的处理很聪明，基本思想是with所求值的对象必须有
         def __exit__(self, type, value, trace):        
             print "In __exit__()"        
 
-
     def get_sample():        
         return Sample()        
-
 
     with get_sample() as sample:        
         print "sample:", sample         
 输出：        
 In __enter__()    
 sample: Foo      
+<<<<<<< HEAD
 In __exit__()      
 
 ## str() repr 和``区别
 尽管他们在特性和功能方面都非常相似，事实上repr()和``做的是完全一样的事情，他们返回的是一个对象的“官方”字符串表示，也就是说绝大多数情况下，可以 通过求值运算（使用eval()内建函数）重新得到该对象，但是str()则有所不同。str()致力于生成一个对象的可读性好的字符串表示，它的返回结果通常无法用于eval()求值，但很适合用于print()语句输出。
+=======
+In __exit__()   
+
+## 命名规范  
+总体原则，新编代码必须按下面命名风格进行，现有库的编码尽量保持风格。     
+1 尽量单独使用小写字母‘l’，大写字母‘O’等容易混淆的字母。        
+2 模块命名尽量短小，使用全部小写的方式，可以使用下划线。         
+3 包命名尽量短小，使用全部小写的方式，不可以使用下划线。    
+4 类的命名使用CapWords的方式，模块内部使用的类采用_CapWords的方式。    
+5 异常命名使用CapWords+Error后缀的方式。    
+6 全局变量尽量只在模块内有效，类似C语言中的static。实现方法有两种，一是__all__机制;二是前缀一个下划线。    
+7 函数命名使用全部小写的方式，可以使用下划线。    
+8 常量命名使用全部大写的方式，可以使用下划线。    
+9 类的属性（方法和变量）命名使用全部小写的方式，可以使用下划线。    
+9 类的属性有3种作用域public、non-public和subclass API，可以理解成C++中的public、private、protected，non-public属性前，前缀一条下划线。    
+11 类的属性若与关键字名字冲突，后缀一下划线，尽量不要使用缩略等其他方式。    
+12 为避免与子类属性命名冲突，在类的一些属性前，前缀两条下划线。比如：类Foo中声明__a,访问时，只能通过Foo._Foo__a，避免歧义。如果子类也叫Foo，那就无能为力了。    
+13 类的方法第一个参数必须是self，而静态方法第一个参数必须是cls。    
+>>>>>>> 7b7b034a6951c6ac11caaac2398b6348d2a30064
