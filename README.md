@@ -102,4 +102,4 @@ In __exit__()
 12 为避免与子类属性命名冲突，在类的一些属性前，前缀两条下划线。比如：类Foo中声明__a,访问时，只能通过Foo._Foo__a，避免歧义。如果子类也叫Foo，那就无能为力了。    
 13 类的方法第一个参数必须是self，而静态方法第一个参数必须是cls。    
 
-##
+## testing for capturing package through HTTP
